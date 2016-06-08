@@ -1,11 +1,14 @@
 var vowels = ["a", "e", "i", "o", "u"];
 var consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
 var illegalCharacters = ["@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "=", "|", "\\", "/", "~", "[", "]", "{", "}"];
+var allowedPunctuation = [".", "?", "!", ","];
+
 var illegalInput = false;
 var multiWord = false;
 var stringsArray = [];
 var pigTranslator = function(input) {
   var string = input;
+  var indexMarker = 0
   if (string.charAt(0)=== "q" && string.charAt(1) === "u") {
     string = string.slice(2) + string.slice(0,2)
   }
@@ -13,6 +16,13 @@ var pigTranslator = function(input) {
     string =  string.slice(1) + string.slice(0,1)
   }}
   string += "ay"
+  for (i = 0; i < string.length; i ++) {
+    indexMarker ++
+    if (allowedPunctuation.includes(string.charAt(indexMarker))) {
+      string = string.slice(0, indexMarker) + string.slice(indexMarker + 1) + string.slice(indexMarker, indexMarker + 1)
+      indexMarker -= 1
+    }
+  }
   return string
   }
 
