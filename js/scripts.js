@@ -3,6 +3,7 @@ var consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q
 var illegalCharacters = ["@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "=", "|", "\\", "/", "~", "[", "]", "{", "}"];
 var illegalInput = false;
 var multiWord = false;
+var stringsArray = [];
 var pigTranslator = function(input) {
   var string = input;
   if (string.charAt(0)=== "q" && string.charAt(1) === "u") {
@@ -16,14 +17,14 @@ var pigTranslator = function(input) {
   }
 
 var inputTranslator = function(input) {
-  var string = input;
+  var string = input.toLowerCase();
   illegalInput = false;
   multiWord = false;
   for (i=0 ; i<string.length ; i ++) {
     if (illegalCharacters.includes(string.charAt(i))) {
       illegalInput = true;
     }
-    if (string.charAt(i) === " ") {
+    else if (string.charAt(i) === " ") {
       multiWord = true;
     }
   };
@@ -33,9 +34,12 @@ var inputTranslator = function(input) {
   }
   else if (multiWord) {
     stringsArray = string.split(" ");
+    var pigArray = []
     pigArray = stringsArray.map(function(word) {
       return pigTranslator(word);
     });
+    var result = pigArray.join(' ');
+    alert (result);
 
   }
   else {
